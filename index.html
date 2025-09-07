@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务备案查询平台-首页</title>
+    <link rel="icon" href="https://hive.forms.usercontent.microsoft/Images/9188040d-6c67-4c5b-b112-36a304b66dad/00000000-0000-0000-0003-bffd409131bf/T0RRH45M4BJGVXSCOEE2GS5JAZ/386e9d40-41d5-440e-acdb-b375215b7188" type="image/png">
+
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            width: 100%;
+        }
+        
+        .warning-box {
+            background-color: #330000;
+            border: 1px solid #ff3333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 30px;
+            color: #ffcccc;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .platform-link {
+            color: #4da6ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .platform-link:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            margin: 20px 0;
+        }
+        
+        .exit-button {
+            background-color: #990000;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .exit-button:hover {
+            background-color: #cc0000;
+        }
+        
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 30px;
+        }
+        
+        .footer a {
+            color: #999;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 600px) {
+            .warning-box {
+                font-size: 14px;
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .exit-button {
+                padding: 10px 25px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>永慕智创软件工作室（永慕科技）服务备案查询平台</h1>
+        </div>
+        
+        <div class="warning-box">
+            <p>⚠️ 该平台无法直接使用，请通过相关链接跳转后访问本平台并查看相关服务的备案信息！</p>
+        </div>
+        
+        <div class="content">
+            <p>点击下方按钮关闭本网页</p>
+            <button class="exit-button" id="exitButton">退出页面</button>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025-present 永慕智创软件工作室（永慕科技） 版权所有</p>
+             <p><a href="https://yongmukeji.top" target="_blank">永慕智创软件工作室（永慕科技官网）</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('exitButton').addEventListener('click', function() {
+            // 尝试关闭窗口
+            window.close();
+            
+            // 设置3秒后检查是否关闭成功
+            setTimeout(function() {
+                // 如果窗口仍然打开（说明关闭失败）
+                if (!window.closed) {
+                    alert('您好像没有成功关闭本页面，请查看页面顶部/底部是否有关闭按钮。如有，请点击以退出。');
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
