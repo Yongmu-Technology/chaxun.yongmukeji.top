@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查询结果</title>
+    <link rel="icon" href="https://hive.forms.usercontent.microsoft/Images/9188040d-6c67-4c5b-b112-36a304b66dad/00000000-0000-0000-0003-bffd409131bf/T0RRH45M4BJGVXSCOEE2GS5JAZ/386e9d40-41d5-440e-acdb-b375215b7188" type="image/png">
+
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+        
+        .modal-content h2 {
+            margin-top: 0;
+            color: #1E88E5;
+        }
+        
+        .modal-content p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .modal-content a {
+            color: #1E88E5;
+            text-decoration: none;
+        }
+        
+        .modal-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 800px;
+        }
+        
+        .备案框 {
+            background-color: #E3F2FD;
+            color: #000;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .备案号-小 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .备案号-大 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .备案状态 {
+            font-size: 12px;
+            color: #4CAF50;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background-color: #111;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        
+        th {
+            background-color: #222;
+            font-weight: bold;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .status-running {
+            color: #4CAF50;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .footer a {
+            color: #999;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        
+        .close-btn {
+            background-color: #1E88E5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+            margin-top: -10px;
+            margin-right: -10px;
+        }
+        
+        @media (max-width: 600px) {
+            .modal-content {
+                max-width: 90%;
+            }
+            
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+            
+            .备案框 {
+                padding: 15px;
+            }
+            
+            .备案号-大 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 弹窗通知 -->
+    <div class="modal" id="notificationModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <h2>关于启用服务备案登记制度的通知</h2>
+            <p>各部门：</p>
+            <p>为方便永慕智创软件工作室（永慕科技）监管，实现提供服务有问题可追溯到相关责任人，自2023年5月5日起，以永慕智创软件工作室（永慕科技）名义提供的任何服务（包含有偿、无偿服务、应用程序、网站等在上线提供前需报永慕智创软件工作室（永慕科技）审核，根据<a href="https://terms-service.yongmukeji.top/" target="_blank">《永慕智创软件工作室（永慕科技）服务条款》</a>审核通过后即可向广大消费者提供。</p>
+            <p>该制度自公告之日起实施，在此之前提供的任何服务、应用程序、网站等都需进行备案登记，在提供服务前需向消费者提供审核通过的文件，在审核通过前不得向消费者提供，否则因此造成的不良影响由服务提供人员、消费者自行承担！如对永慕智创软件工作室（永慕科技）的合法权益造成影响的需依法依规给予赔偿或道歉等。</p>
+            <p><strong>消费者注意：</strong>审核通过的网站会在显著位置展示相关文件，工作人员使用微信、钉钉等软件的聊天功能向您提供服务的需向您展示相关文件，部分数据刷新、上报可能存在延迟，最迟7个工作日内可查询到已明确进行了服务备案的服务的相关信息，如有疑问可通过<a href="https://yongmukeji.top" target="_blank">永慕智创软件工作室（永慕科技）官网</a>等方式联系我们处理！</p>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="container">
+        <div class="备案框">
+            <div class="备案号-小">备案号：</div>
+            <p>例：【永服*备】年份-服务类型代码-编号（W为在微信提供的服务；I为在网站提供的服务；X为需用到工作人员辅助提供的服务；Y为永慕智创软件工作室（永慕科技）开发提供的应用程序）</p>
+            <div class="备案号-大">【永服*备】2025-I-001号</div>
+            <div class="备案状态">该服务已通过备案，符合永慕智创软件工作室（永慕科技）相关规定，准予上线供大众使用！</div>
+        </div>
+
+        <table>
+            <tr>
+                <th>备案号 例：【永服*备】年份-服务类型代码-编号（W为在微信提供的服务；I为在网站提供的服务；X为需用到工作人员辅助提供的服务；Y为永慕智创软件工作室（永慕科技）开发提供的应用程序）</th>
+                <td>【永服*备】2025-I-001号</td>
+            </tr>
+            <tr>
+                <th>工信部或公安部备案号 【"暂无"表示该渠道需在工信部或公安部（也可能两者都需备案）进行备案，但因个别原因目前无法推进，永慕智创软件工作室（永慕科技）在条件允许时会尽快推动工信部或公安部备案（也可能同时进行）】</th>
+                <td>暂无</td>
+            </tr>
+            <tr>
+                <th>服务名称</th>
+                <td>永慕智创软件工作室（永慕科技）官网</td>
+            </tr>
+            <tr>
+                <th>服务类型</th>
+                <td>网站</td>
+            </tr>
+            <tr>
+                <th>申请人/责任人</th>
+                <td>李柳航</td>
+            </tr>
+            <tr>
+                <th>是否收费</th>
+                <td>否</td>
+            </tr>
+            <tr>
+                <th>申请日期</th>
+                <td>2025/05/04</td>
+            </tr>
+            <tr>
+                <th>审核意见</th>
+                <td>通过</td>
+            </tr>
+            <tr>
+                <th>服务介绍</th>
+                <td>永慕智创软件工作室（永慕科技）官网</td>
+            </tr>
+            <tr>
+                <th>审核人</th>
+                <td>李柳航</td>
+            </tr>
+            <tr>
+                <th>备案有效期限</th>
+                <td>长期</td>
+            </tr>
+            <tr>
+                <th>网页地址/链接</th>
+                <td><a href="https://yongmukeji.top" target="_blank">https://yongmukeji.top</a></td>
+            </tr>
+            <tr>
+                <th>负责部门</th>
+                <td>永慕科技电化教育中心</td>
+            </tr>
+            <tr>
+                <th>状态</th>
+                <td class="status-running">✅ 运行中</td>
+            </tr>
+                <th>其他</th>
+                <td>无</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+        <p>© 2025-present 永慕智创软件工作室（永慕科技） 版权所有</p>
+        <p><a href="https://yongmukeji.top" target="_blank">永慕智创软件工作室（永慕科技）官网</a></p>
+    </div>
+
+    <script>
+        // 页面加载时显示弹窗
+        window.onload = function() {
+            document.getElementById('notificationModal').style.display = 'flex';
+        };
+        
+        // 关闭弹窗函数
+        function closeModal() {
+            document.getElementById('notificationModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
